@@ -13,4 +13,11 @@ import org.junit.Test;
             assertEquals("T3 Monte Belo", property1.getDescription());
             assertEquals(150000.0, property1.getPrice(), 0.001);
         }
+        @Test
+        public void testToString() {
+            Property property1 = new Property("T3 Monte Belo", 150000.0, 1);
+
+            String expectedString = "Descricao   : T3 Monte Belo\nPreco       : 150000.0 Euros";
+            assertEquals(expectedString, property1.toString());
+        }
     }
