@@ -9,7 +9,7 @@
 public class Property {
 
     private static int numberOfProperties = 0;
-    private final String id;
+    private final int id;
     private String description;
     private double price;
 
@@ -17,10 +17,12 @@ public class Property {
      * Constructor of class Property
      *
      * @param description The property description.
-     * @param price The property price.
+     * @param price       The property price.
+     * @param id
      */
-    public Property(String description, double price) {
+    public Property(String description, double price, int id) {
 
+        this.id = id;
     }
 
     /**
