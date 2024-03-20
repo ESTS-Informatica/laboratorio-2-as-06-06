@@ -2,11 +2,13 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
+
 public class CompanyTest {
 
     private Company company;
     private User client1, client2, seller1, seller2;
-    private Property property1;
+    private Property property1, property2;
 
     @Before
     public void setUp() {
@@ -16,6 +18,7 @@ public class CompanyTest {
         seller1 = new User("Fernando Fernandes", "966777101", "fefe@remax.pt");
         seller2 = new User("Rodrigo Rodrigues", "966777152", "roro@remax.pt");
         property1 = new Property("T3 Monte Belo", 150000.0, 1);
+        property2 = new Property("T2 Jardins", 200000.0, 2);
     }
 
     @Test
@@ -24,6 +27,7 @@ public class CompanyTest {
         assertNotNull(company.getSellers());
         assertNotNull(company.getProperties());
         assertNotNull(company.getSells());
+
     }
 
     @Test
@@ -108,5 +112,37 @@ public class CompanyTest {
         assertEquals(0, company.getProperties().size());
     }
 
-    
+    @Test
+    public void testCreateSell() {
+        assertTrue(company.registerClient(client1));
+        assertTrue(company.registerSeller(seller1));
+        assertTrue(company.registerProperty(property1));
+        assertTrue(company.createSell(client1, seller1, property1));
+        assertEquals(1, company.getSells().size());
+    }
+
+    @Test
+    public void testCalculateSellsOfTheYear() {
+        assertTrue(company.registerClient(client1));
+        assertTrue(company.registerSeller(seller1));
+        assertTrue(company.registerProperty(property1));
+        assertTrue(company.createSell(client1, seller1, property1));
+        assertEquals(1, company.calculateSellsOfTheYear(2024));
+    }
+
+    @Test
+    public void testFindSellerOfTheYear() {
+        assertTrue(company.registerClient(client1));
+        assertTrue(company.registerClient(client2));
+        assertTrue(company.registerSeller(seller1));
+        assertTrue(company.registerSeller(seller2));
+        assertTrue(company.registerProperty(property1));
+        assertTrue(company.registerProperty(property2));
+
+        assertTrue(company.createSell(client1, seller1, property1));
+        assertTrue(company.createSell(client2, seller2, property2));
+
+        assertEquals(seller1.getName(), company.findSellerOfTheYear(2024));
+    }
+
 }
