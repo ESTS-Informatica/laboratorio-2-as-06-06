@@ -1,5 +1,3 @@
-
-
 /**
  * User can either be a client or a seller.
  *
@@ -21,7 +19,7 @@ public class User {
     /**
      * Constructor of class User.
      *
-     * @param name The user name.
+     * @param name  The user name.
      * @param phone The user phone.
      * @param email The user email.
      */

@@ -1,5 +1,3 @@
-
-
 /**
  * A property to sell.
  *
@@ -21,50 +19,56 @@ public class Property {
      * @param id
      */
     public Property(String description, double price, int id) {
-
         this.id = id;
+        this.description = description;
+        this.price = price;
     }
 
     /**
      * Id selector.
      */
     public int getId() {
-        
+        return this.id;
     }
 
     /**
      * Description selector.
      */
     public String getDescription() {
-
+        return this.description;
     }
 
     /**
      * Description modifier.
-     * 
+     *
      * @param description The new description. Must not be null.
      */
     public void setDescription(String description) {
-
+        if (description != null) {
+            this.description = description;
+        }
     }
 
     /**
      * Price selector.
      */
     public double getPrice() {
-        
+        return this.price;
     }
-    
+
     /**
      * Price modifier.
-     * 
+     *
      * @param price The new price. Must not be negative.
      */
     public void setPrice(double price) {
-
+        if (price >= 0) {
+            this.price = price;
+        }
     }
 
     @Override
     public String toString() {
+        return "Property ID: " + this.id + "\nDescription: " + this.description + "\nPrice: " + this.price;
     }
 }

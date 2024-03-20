@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +23,10 @@ public class Company {
      * Constructor of class Company
      */
     public Company() {
-
+        clients = new ArrayList<>();
+        sellers = new ArrayList<>();
+        properties = new ArrayList<>();
+        sells = new ArrayList<>();
     }
 
     /**
@@ -33,7 +35,7 @@ public class Company {
      * @return This company clients.
      */
     public List<User> getClients() {
-        return null;         // dummy implementation
+        return clients;
     }
 
     /**
@@ -42,7 +44,7 @@ public class Company {
      * @return This company sellers.
      */
     public List<User> getSellers() {
-        return null;         // dummy implementation
+        return sellers;
     }
 
     /**
@@ -51,7 +53,7 @@ public class Company {
      * @return This company's properties.
      */
     public List<Property> getProperties() {
-        return null;         // dummy implementation
+        return properties;
     }
 
     /**
@@ -60,7 +62,7 @@ public class Company {
      * @return This company sells.
      */
     public List<Sell> getSells() {
-        return null;         // dummy implementation
+        return sells;
     }
 
     /**
@@ -70,7 +72,11 @@ public class Company {
      * @return true If the registration succeeds, false otherwise.
      */
     public boolean registerClient(User client) {
-        return true;         // dummy implementation
+        if (client != null && !clients.contains(client)) {
+            clients.add(client);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -80,7 +86,11 @@ public class Company {
      * @return true If the registration succeeds, false otherwise.
      */
     public boolean registerSeller(User seller) {
-        return true;         // dummy implementation
+        if (seller != null && !sellers.contains(seller)) {
+            sellers.add(seller);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -90,7 +100,11 @@ public class Company {
      * @return true If the registration succeeds, false otherwise.
      */
     public boolean registerProperty(Property property) {
-        return true;         // dummy implementation
+        if (property != null && !properties.contains(property)) {
+            properties.add(property);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -100,7 +114,11 @@ public class Company {
      * @return true If the registration succeeds, false otherwise.
      */
     public boolean registerSell(Sell sell) {
-        return true;         // dummy implementation
+        if (sell != null && !sells.contains(sell)) {
+            sells.add(sell);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -112,7 +130,13 @@ public class Company {
      * @return true If the request succeeds, false otherwise.
      */
     public boolean createSell(User client, User seller, Property property) {
-        return true;         // dummy implementation
+        if (client != null && seller != null && property != null &&
+                clients.contains(client) && sellers.contains(seller) && properties.contains(property)) {
+            Sell newSell = new Sell(client, seller, property);
+            sells.add(newSell);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -122,7 +146,13 @@ public class Company {
      * @return The total number of sells in the year.
      */
     public int calculateSellsOfTheYear(int year) {
-        return 0;         // dummy implementation
+        int count = 0;
+        for (Sell sell : sells) {
+            if (sell.getDate().getYear() == year) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
@@ -132,7 +162,21 @@ public class Company {
      * @return The name of the seller of the year.
      */
     public String findSellerOfTheYear(int year) {
-        return null;         // dummy implementation
+        String sellerOfTheYear = null;
+        int maxSells = 0;
+        for (User seller : sellers) {
+            int sellsBySeller = 0;
+            for (Sell sell : sells) {
+                if (sell.getSeller().equals(seller) && sell.getDate().getYear() == year) {
+                    sellsBySeller++;
+                }
+            }
+            if (sellsBySeller > maxSells) {
+                maxSells = sellsBySeller;
+                sellerOfTheYear = seller.getName();
+            }
+        }
+        return sellerOfTheYear;
     }
 
 }
